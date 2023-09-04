@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ <h1>Complex Canvas Example</h1>
+ <canvas id="myCanvas" width="800" height="600"></canvas>
+ 
+ <script>
+ var canvas = document.getElementById("myCanvas"); 
+ var context = canvas.getContext("2d"); 
+ 
+ var x = 50; 
+ var y = 50; 
+ var radius = 20; 
+ var dx = 2; 
+ var dy = 2; 
+ 
+ function drawCircle(x, y) { 
+ context.beginPath(); 
+ context.arc(x, y, radius, 0, Math.PI * 2); 
+ context.fillStyle = "blue"; 
+ context.fill(); 
+ context.closePath(); 
+ } 
+ 
+ function animate() {
+    context.clearRect(0, 0, canvas.width, canvas.height); 
+ 
+ drawCircle(x, y); 
+ 
+ x += dx; 
+ y += dy; 
+ 
+ if (x + radius > canvas.width || x - radius < 0) { 
+ dx = -dx; 
+ } 
+ 
+ if (y + radius > canvas.height || y - radius < 0) { 
+ dy = -dy; 
+ } 
+ 
+ requestAnimationFrame(animate); 
+ } 
+ 
+ canvas.addEventListener("mousemove", function(event) { 
+ x = event.clientX - canvas.getBoundingClientRect().left; 
+ y = event.clientY - canvas.getBoundingClientRect().top; 
+ }); 
+ 
+ animate(); 
+ </script>
+</body>
+</html>
